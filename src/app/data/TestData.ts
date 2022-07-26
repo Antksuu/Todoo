@@ -188,6 +188,15 @@ export class TestData {
       category: TestData.categories[4],
       date: new Date('2019-03-17')
 
+    },
+    {
+      id: 21,
+      title: 'Ремонт телефона',
+      priority: TestData.priorities[0],
+      completed: false,
+      category: TestData.categories[10],
+      date: new Date('2019-03-17')
+
     }
 
   ];
