@@ -7,7 +7,17 @@ import {TaskDAO} from "../interface/TaskDAO";
 
 export class TaskDAOArray implements TaskDAO {
     search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
-        throw new Error("Method not implemented.");
+        return of(this.searchTodos(category,searchText,status,priority));
+    }
+
+  searchTodos(category: Category, searchText: string, status: boolean, priority: Priority): any {
+        let allTasks = TestData.tasks;
+
+        if(category != null){
+          allTasks=allTasks.filter(todo => todo.category===category);
+        }
+
+        return allTasks;
     }
     getCompletedCountInCategory(category: Category): Observable<number> {
         throw new Error("Method not implemented.");

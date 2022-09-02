@@ -17,29 +17,26 @@ export class TasksComponent implements OnInit {
   dataSource!: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
 //Сылки на компоненты таблицы
-  @ViewChild(MatPaginator, {static: false}) private paginator!: MatPaginator ;
+  @ViewChild(MatPaginator, {static: false}) private paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) private sort!: MatSort;
 
-  @Input()
   tasks!: Task[]; //напрямую не присваеваем только через Input
-//напрямую не присваеваем только через Input
+
+  @Input('tasks')//текущение задачи для отображения на странице
+   set setTask(tasks: Task[]) {//напрямую не присваеваем только через Input
+    this.tasks = tasks;
+    this.fillTable();
+  }
 
   constructor(private dataHandler: DataHandlerService) {
   }
 
   ngOnInit() {
     //this.dataHandler.getAllTasks().subscribe(tasks => this.tasks = tasks);
-
     // датасорс обязательно нужно создавать для таблицы, в него присваивается любой источник (БД, массивы, JSON и пр.)
     this.dataSource = new MatTableDataSource();
-
     this.fillTable();
   }
-
-  // ngAfterViewInit():void {
-  //   this.addTableOdjects();
-  // }
-
 
   toggleTaskCompleted(task: Task) {
     task.completed = !task.completed;
@@ -64,11 +61,15 @@ export class TasksComponent implements OnInit {
   //показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
   private fillTable() {
 
+    if (!this.dataSource) {
+      return;
+    }
+
     this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
     this.addTableOdjects();
 
 
-    this.dataSource.sortingDataAccessor = (task,colName)=> {
+    this.dataSource.sortingDataAccessor = (task, colName) => {
       switch (colName) {
         case 'priority': {
           return task.priority ? task.priority.id : null;
