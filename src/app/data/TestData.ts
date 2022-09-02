@@ -20,10 +20,10 @@ export class TestData {
 
 
   static priorities: Priority[] = [
-    {id: 1, title: 'Низкий', color: '#e5e5e5'},
-    {id: 2, title: 'Средний', color: '#85D1B2'},
-    {id: 3, title: 'Высокий', color: '#F1828D'},
-    {id: 4, title: 'Очень срочно!!', color: '#F1128D'}
+    {id: 1, title: 'Низкий', color: 'rgba(187,110,204,0.63)'},
+    {id: 2, title: 'Средний', color: '#12b6d3'},
+    {id: 3, title: 'Высокий', color: '#f39f00'},
+    {id: 4, title: 'Очень срочно!!', color: '#f11212'}
   ];
 
 
@@ -33,7 +33,7 @@ export class TestData {
       id: 1,
       title: 'Залить бензин полный бак',
       priority: TestData.priorities[2],
-      completed: false,
+      completed: true,
       category: TestData.categories[9],
       date: new Date('2019-04-10')
     },
@@ -42,7 +42,7 @@ export class TestData {
       id: 2,
       title: 'Передать отчеты начальнику управления',
       priority: TestData.priorities[0],
-      completed: false,
+      completed: true,
       category: TestData.categories[0],
       date: new Date('2019-04-11')
     },

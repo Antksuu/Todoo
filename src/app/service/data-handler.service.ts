@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { CategoryDAOArray } from '../data/dao/Impl/CategoryDAOArray';
+import {TaskDAOArray} from '../data/dao/Impl/TaskDAOArray';
 import {TestData} from '../data/TestData';
 import {Category} from '../model/Category';
 import {Task} from '../model/Task';
@@ -8,21 +10,21 @@ import {Task} from '../model/Task';
   providedIn: 'root'
 })
 export class DataHandlerService {
+//реализация работы с данными с помощью массива
+//(можно подставить любые реализации включая работу с бд. Главное соблюдать интерфейс)
 
-  tasksSubject = new BehaviorSubject<Task[]>(TestData.tasks);
-  categoriesSubject = new BehaviorSubject<Category[]>(TestData.categories);
+  private taskDaoArray = new TaskDAOArray();
+  private categoryDaoArray = new CategoryDAOArray();
+
   constructor() {
-    this.fillTasks();
+
   }
 
-
-
-  fillTasks() {
-    this.tasksSubject.next(TestData.tasks);
+  getAllTasks(): Observable<Task[]> {
+    return this.taskDaoArray.getAll();
   }
 
-  fillTasksByCategory(category: Category) {
-    const tasks = TestData.tasks.filter(task => task.category === category);
-    this.tasksSubject.next(tasks);
+  getAllCategories(): Observable<Category[]> {
+    return this.categoryDaoArray.getAll();
   }
 }
